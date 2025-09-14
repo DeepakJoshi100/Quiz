@@ -1,0 +1,134 @@
+/* ===== Global Styles ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7f8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.page {
+  display: none;
+  background: #fff;
+  padding: 30px 40px;
+  margin: 50px 0;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 700px;
+}
+
+.page.active {
+  display: block;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+h3 {
+  color: #555;
+}
+
+/* ===== Input Fields ===== */
+input[type="text"], select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* ===== Buttons ===== */
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* ===== Quiz Options ===== */
+#options label {
+  display: block;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+#options input[type="radio"] {
+  margin-right: 10px;
+}
+
+#options label:hover {
+  background-color: #f1f1f1;
+  border-color: #007bff;
+}
+
+#options input[type="radio"]:checked + span,
+#options input[type="radio"]:checked {
+  background-color: #dbefff;
+}
+
+/* ===== Result Page ===== */
+#answersReview p {
+  background: #f9f9f9;
+  border-left: 5px solid #007bff;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 6px;
+}
+
+#score {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* ===== Course Label ===== */
+#courseName {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #007bff;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 600px) {
+  .page {
+    padding: 20px 20px;
+    margin: 20px 10px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

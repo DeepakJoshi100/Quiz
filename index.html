@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MCQ Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Page 1: User Details -->
+<div id="page1" class="page active">
+  <h2>Enter Your Details</h2>
+  <label>Name: <input type="text" id="name"></label><br><br>
+  <label>Father's Name: <input type="text" id="fname"></label><br><br>
+
+  <h3>Select Course:</h3>
+  <select id="courseSelect">
+    <option value="">--Select Course--</option>
+    <option value="tally">Tally ERP 9</option>
+    <option value="web">Web Development</option>
+    <option value="html">HTML</option>
+    <option value="css">CSS</option>
+    <option value="js">JavaScript</option>
+    <option value="basic">Basic Computer</option>
+  </select><br><br>
+
+  <button onclick="startQuiz()">Continue</button>
+</div>
+
+<!-- Page 2: Quiz -->
+<div id="page2" class="page">
+  <h2>MCQ Questions</h2>
+  <p id="courseName"></p>
+  <p id="questionText"></p>
+  <div id="options"></div>
+  <button onclick="nextQuestion()">Next</button>
+</div>
+
+<!-- Page 3: Result -->
+<div id="page3" class="page">
+  <h2>Result</h2>
+  <p id="userDetails"></p>
+  <p id="score"></p>
+  <div id="answersReview"></div>
+</div>
+
+<!-- JS -->
+<script src="questions.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
