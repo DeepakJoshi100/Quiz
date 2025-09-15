@@ -237,8 +237,8 @@ const questionBank = {
 ],
   web: [
     { question: "HTML stands for?", options: ["Hyper Text Markup Language","Home Tool Markup Language","High Tech Machine Language"], answer: "Hyper Text Markup Language" },
-    { question: "Which tag is used for line break?", options: ["<br>","<break>","<lb>"], answer: "<br>" },
-    { question: "The <a> tag is used for?", options: ["Hyperlink","Paragraph","Heading","Image"], answer: "Hyperlink" }
+    { question: "Which tag is used for line break?", options: ["< br >","< break >","u","lb"], answer: "< br >" },
+    { question: "The <a> tag is used for?", options: ["Hyperlink","Paragraph","Heading","Image"], answer: "Hyperlink" },
   ],
   html: [
     { question: "The <p> tag is used for?", options: ["Paragraph","Picture","Padding","Page"], answer: "Paragraph" },
