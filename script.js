@@ -1,3 +1,4 @@
+// ===== Variables =====
 let userName = "";
 let fatherName = "";
 let selectedCourse = "";
@@ -8,7 +9,10 @@ let timerDuration = 45 * 60; // 45 minutes
 let timerInterval;
 let timeTaken = 0;
 
-// Shuffle function
+// ===== Google Sheet URL =====
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1oIGoQR4K5HJAwBCFPSFP1_88g1Ffe-wprLKsQJ3fFwd1vuwsehz38LWHfMhA7Kiq/exec"; // replace with your URL
+
+// ===== Shuffle Function =====
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -17,7 +21,7 @@ function shuffleArray(array) {
   return array;
 }
 
-// Start Quiz
+// ===== Start Quiz =====
 function startQuiz() {
   userName = document.getElementById("name").value.trim();
   fatherName = document.getElementById("fname").value.trim();
@@ -50,7 +54,7 @@ function startQuiz() {
   startTimer(timerDuration);
 }
 
-// Show Question
+// ===== Show Question =====
 function showQuestion() {
   const q = selectedQuestions[currentQuestion];
   document.getElementById("questionText").innerText =
@@ -70,17 +74,16 @@ function showQuestion() {
     optionsDiv.appendChild(document.createElement("br"));
   });
 
-  // Update Next button text
+  // Update navigation buttons
   const navButtons = document.querySelectorAll("#page2 .nav-btn");
-  const nextBtn = navButtons[1]; // second button is Next
-  nextBtn.innerText = currentQuestion === selectedQuestions.length - 1 ? "Finish" : "Next";
-
-  // Disable Previous on first question
   const prevBtn = navButtons[0];
+  const nextBtn = navButtons[1];
+
   prevBtn.disabled = currentQuestion === 0;
+  nextBtn.innerText = currentQuestion === selectedQuestions.length - 1 ? "Finish" : "Next";
 }
 
-// Save Answer
+// ===== Save Answer =====
 function saveAnswer() {
   const selected = document.querySelector('input[name="option"]:checked');
   if (currentQuestion >= 0 && currentQuestion < selectedQuestions.length) {
@@ -88,7 +91,7 @@ function saveAnswer() {
   }
 }
 
-// Previous Question
+// ===== Previous Question =====
 function prevQuestion() {
   saveAnswer();
   if (currentQuestion > 0) {
@@ -97,7 +100,7 @@ function prevQuestion() {
   }
 }
 
-// Next Question
+// ===== Next Question =====
 function nextQuestion() {
   saveAnswer();
   if (currentQuestion < selectedQuestions.length - 1) {
@@ -108,7 +111,7 @@ function nextQuestion() {
   }
 }
 
-// Timer
+// ===== Timer =====
 function startTimer(duration) {
   let timeRemaining = duration;
   const timerElement = document.getElementById("timer");
@@ -125,12 +128,11 @@ function startTimer(duration) {
       alert("Time is up! Submitting quiz...");
       showResult();
     }
-
     timeRemaining--;
   }, 1000);
 }
 
-// Show Result
+// ===== Show Result =====
 function showResult() {
   saveAnswer();
   clearInterval(timerInterval);
@@ -194,9 +196,32 @@ function showResult() {
   document.getElementById("answersReview").innerHTML = "";
   document.getElementById("answersReview").appendChild(courseLabel);
   document.getElementById("answersReview").innerHTML += reviewHTML;
+
+  // ===== Send to Google Sheet =====
+  const data = {
+    name: userName,
+    fatherName: fatherName,
+    course: selectedCourse,
+    score: score,
+    answers: userAnswers,
+    timeTaken: timeTaken
+  };
+  sendToGoogleSheet(data);
 }
 
-// Exit Quiz
+// ===== Send Data to Google Sheet =====
+function sendToGoogleSheet(data) {
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(() => console.log("Data sent to Google Sheet"))
+  .catch(err => console.error("Error sending data:", err));
+}
+
+// ===== Exit Quiz =====
 function exitQuiz() {
   document.getElementById("page3").classList.remove("active");
   document.getElementById("page1").classList.add("active");
