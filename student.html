@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Quiz Record</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page active">
+  <h2>Check Your Quiz Records</h2>
+
+  <label>Enter Name:</label>
+  <input type="text" id="studentName" placeholder="Your Name">
+  <label>Enter Password:</label>
+  <input type="text" id="studentPassword" placeholder="Your Password">
+  <button onclick="loadStudentRecords()">View Records</button>
+
+  <div id="recordsList"></div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCbHpr9Y9Wi6FdsiBj5Eg6qZutDI4WiNQA",
+    authDomain: "quiz-e2894.firebaseapp.com",
+    projectId: "quiz-e2894",
+    storageBucket: "quiz-e2894.firebasestorage.app",
+    messagingSenderId: "967283433760",
+    appId: "1:967283433760:web:572dcf4834085f874df745",
+    measurementId: "G-P788VPQFR6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const attemptsRef = collection(db, "quizAttempts");
+
+  window.loadStudentRecords = async function() {
+    const container = document.getElementById("recordsList");
+    container.innerHTML = "<p>Loading...</p>";
+
+    const name = document.getElementById("studentName").value.trim();
+    const password = document.getElementById("studentPassword").value.trim();
+
+    if(!name || !password){
+      alert("Please enter both Name and Password.");
+      return;
+    }
+
+    const q = query(attemptsRef, where("name", "==", name), where("password", "==", password));
+    const snapshot = await getDocs(q);
+    const dataArr = [];
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      data.id = docSnap.id;
+      dataArr.push(data);
+    });
+
+    if(dataArr.length === 0){
+      container.innerHTML = "<p>No records found.</p>";
+      return;
+    }
+
+    container.innerHTML = "";
+    dataArr.forEach(a => {
+      const div = document.createElement("div");
+      div.className = "attemptCard";
+      div.innerHTML = `
+        <p><b>Course:</b> ${a.course} | <b>Score:</b> ${a.score}/${a.total} | <b>Time:</b> ${new Date(a.timestamp).toLocaleString()}</p>
+        <p><b>Answers:</b> ${a.answers.join(", ")}</p>
+        <hr>
+      `;
+      container.appendChild(div);
+    });
+  }
+</script>
+</body>
+</html>

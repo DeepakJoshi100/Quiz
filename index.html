@@ -31,9 +31,16 @@
 <div id="page2" class="page">
   <h2>MCQ Questions</h2>
   <p id="courseName"></p>
+  <p id="timer"></p>
+  <p id="progress"></p>
   <p id="questionText"></p>
   <div id="options"></div>
-  <button onclick="nextQuestion()">Next</button>
+
+  <!-- Navigation -->
+  <div class="controls">
+    <button class="nav-btn" onclick="prevQuestion()">Previous</button>
+    <button class="nav-btn" onclick="nextQuestion()">Next</button>
+  </div>
 </div>
 
 <!-- Page 3: Result -->
@@ -41,10 +48,11 @@
   <h2>Result</h2>
   <p id="userDetails"></p>
   <p id="score"></p>
+  <p id="analysis"></p>
   <div id="answersReview"></div>
+  <button class="nav-btn" onclick="exitQuiz()">Exit</button>
 </div>
 
-<!-- JS -->
 <script src="questions.js"></script>
 <script src="script.js"></script>
 </body>
